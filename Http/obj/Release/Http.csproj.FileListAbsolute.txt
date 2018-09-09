@@ -1,0 +1,6 @@
+C:\Users\Ian\source\repos\Http\Http\bin\Release\Http.dll
+C:\Users\Ian\source\repos\Http\Http\bin\Release\Http.pdb
+C:\Users\Ian\source\repos\Http\Http\obj\Release\Http.csproj.CoreCompileInputs.cache
+C:\Users\Ian\source\repos\Http\Http\obj\Release\Http.dll
+C:\Users\Ian\source\repos\Http\Http\obj\Release\Http.pdb
+C:\Users\Ian\source\repos\Http\Http\obj\Release\Http.csprojResolveAssemblyReference.cache

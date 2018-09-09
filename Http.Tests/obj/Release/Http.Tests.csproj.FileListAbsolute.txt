@@ -1,0 +1,10 @@
+C:\Users\Ian\source\repos\Http\Http.Tests\bin\Release\Http.Tests.exe.config
+C:\Users\Ian\source\repos\Http\Http.Tests\bin\Release\Http.Tests.exe
+C:\Users\Ian\source\repos\Http\Http.Tests\bin\Release\Http.Tests.pdb
+C:\Users\Ian\source\repos\Http\Http.Tests\bin\Release\Http.dll
+C:\Users\Ian\source\repos\Http\Http.Tests\bin\Release\Http.pdb
+C:\Users\Ian\source\repos\Http\Http.Tests\obj\Release\Http.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Ian\source\repos\Http\Http.Tests\obj\Release\Http.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Ian\source\repos\Http\Http.Tests\obj\Release\Http.Tests.csproj.CopyComplete
+C:\Users\Ian\source\repos\Http\Http.Tests\obj\Release\Http.Tests.exe
+C:\Users\Ian\source\repos\Http\Http.Tests\obj\Release\Http.Tests.pdb
