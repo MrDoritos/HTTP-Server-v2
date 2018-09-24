@@ -15,6 +15,11 @@ namespace Http.HttpMessage
         public HttpResponse(ResponseHeader responseHeader) : base(responseHeader ?? new ResponseHeader()) { content = new Content(); }
         public HttpResponse(ResponseHeader responseHeader, Content content) : base (responseHeader ?? new ResponseHeader()) { this.content = content ?? new Content(); }
 
+        public byte[] Serialize(Encoding encoding)
+        {
+            return System.Text.Encoding.Convert(encoding, System.Text.Encoding.UTF8, System.Text.Encoding.ASCII.GetBytes((HeaderToString() + "\r\n")).Append(content.ContentBytes));
+        }
+
         public byte[] Serialize()
         {
             return System.Text.Encoding.UTF8.GetBytes(HeaderToString() + "\r\n").Append(content.ContentBytes);

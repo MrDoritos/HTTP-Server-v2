@@ -13,6 +13,7 @@ namespace Http.HttpMessage.Message
         public string UserAgent;
         public string Version;
         public int ContentLength;
+        public string boundary;
 
         public RequestParameters() { Version = "HTTP/1.0"; }
         public RequestParameters(ContentTypes ContentType, String contentType, String UserAgent, String Version, Int32 ContentLength) { this.ContentLength = ContentLength; this.Version = Version ?? "HTTP/1.0"; this.UserAgent = UserAgent ?? ""; this.contentType = ContentType; this.ContentType = contentType ?? ""; }
@@ -25,6 +26,7 @@ namespace Http.HttpMessage.Message
             string userAgent = "";
             string version = "";
             int contentlength = 0;
+            string boundary = "";
 
             foreach (var headerVariables in headerParamters.Select(n => n.HeaderVariables))
             foreach (var a in headerVariables)
@@ -46,19 +48,19 @@ namespace Http.HttpMessage.Message
                         version = "HTTP/2.0";
                         break;
                     case "content-type":
-                        if (ContentTypeTryParse(a.value, out ContentTypes types)) { contentType = types.ToString(); ContentType = types; }
+                        if (ContentTypeTryParse(a.value, out ContentTypes types)) { contentType = types.ToString(); ContentType = types; boundary = a.value.Split('=').Last(); }
                         break;
                 }
             if (!isPost)
                 return new RequestParameters(userAgent, version);
             else
-                return new RequestParameters(ContentType, contentType, userAgent, version, contentlength);
+                return new RequestParameters(ContentType, contentType, userAgent, version, contentlength) { boundary = boundary };
         }
 
         public static bool ContentTypeTryParse(string source, out ContentTypes content)
         {
             content = ContentTypes.URLENCODEDFORM;
-            switch (source.ToLower())
+            switch (source.ToLower().Split(';')[0])
             {
                 case "multipart/form-data":
                     content = ContentTypes.FORMMULTIPART;

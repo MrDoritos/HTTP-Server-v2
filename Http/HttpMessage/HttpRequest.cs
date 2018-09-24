@@ -22,14 +22,19 @@ namespace Http.HttpMessage
         private static string[] bodySplit = { "\r\n\r\n" };
         public static HttpRequest Parse(byte[] raw)
         {
-            string dat = Encoding.UTF8.GetString(raw ?? throw new ArgumentNullException("byte[] raw"));
+            string dat = Encoding.Default.GetString(raw ?? throw new ArgumentNullException("byte[] raw"));
             if (dat.Length < 1) { return new HttpRequest(); }
             string[] splitbody;
             if ((splitbody = dat.Split(bodySplit, StringSplitOptions.None)).Length < 2) { return new HttpRequest(); };
             RequestHeader request = RequestHeader.Parse(splitbody[0]);
-            byte[] content = Encoding.UTF8.GetBytes(splitbody[1]);
+            byte[] content = Encoding.Default.GetBytes(dat.Remove(0, splitbody[0].Length + 4).Take(request.RequestParameters.ContentLength).ToArray());
             Form form = null;
-            if (request.Method == Methods.POST) if (request.RequestParameters.contentType == RequestParameters.ContentTypes.FORMMULTIPART) { form = Form.Parse(Form.FormTypes.Mutlipart, splitbody[1], ""); } else if (request.RequestParameters.contentType == RequestParameters.ContentTypes.URLENCODEDFORM) { form = Form.Parse(Form.FormTypes.UrlEncode, splitbody[1]); }
+            //REMOVE THIS
+
+            //request.RequestParameters.contentType = RequestParameters.ContentTypes.FORMMULTIPART;
+
+            //
+            if (request.Method == Methods.POST) if (request.RequestParameters.contentType == RequestParameters.ContentTypes.FORMMULTIPART) { form = Form.Parse(Form.FormTypes.Mutlipart, Encoding.Default.GetString(content), request.RequestParameters.boundary); } else if (request.RequestParameters.contentType == RequestParameters.ContentTypes.URLENCODEDFORM) { form = Form.Parse(Form.FormTypes.UrlEncode, splitbody[1]); }
             HttpRequest toreturn = new HttpRequest(request, new Content() { ContentBytes = content}, form);
             return toreturn;
         }

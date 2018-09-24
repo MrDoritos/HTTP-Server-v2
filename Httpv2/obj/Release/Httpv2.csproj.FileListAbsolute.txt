@@ -1,0 +1,6 @@
+C:\Users\Ian\source\repos\Http\Httpv2\obj\Release\Httpv2.csproj.CoreCompileInputs.cache
+C:\Users\Ian\source\repos\Http\Httpv2\bin\Release\Httpv2.dll
+C:\Users\Ian\source\repos\Http\Httpv2\bin\Release\Httpv2.pdb
+C:\Users\Ian\source\repos\Http\Httpv2\obj\Release\Httpv2.dll
+C:\Users\Ian\source\repos\Http\Httpv2\obj\Release\Httpv2.pdb
+C:\Users\Ian\source\repos\Http\Httpv2\obj\Release\Httpv2.csprojResolveAssemblyReference.cache

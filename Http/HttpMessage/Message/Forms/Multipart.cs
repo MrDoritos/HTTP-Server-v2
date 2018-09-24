@@ -13,7 +13,7 @@ namespace Http.HttpMessage.Message.Forms
         public Multipart(FormMultipart.Message[] messages) { this.messages = messages; }
         public static Multipart Parse(string data, string boundary)
         {
-            var split = data.Split(new string[] { boundary }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var split = data.Split(new string[] { "--" + boundary }, StringSplitOptions.RemoveEmptyEntries).ToList();
             FormMultipart.Message[] messages = split.Select(n => FormMultipart.Message.Parse(n)).ToArray();
             return new Multipart(messages);
         }
