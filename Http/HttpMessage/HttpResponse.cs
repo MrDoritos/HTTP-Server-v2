@@ -34,6 +34,15 @@ namespace Http.HttpMessage
             return toreturn;
         }
 
+        static public string HeaderToString(ulong contentlength, ResponseHeader responseHeader)
+        {
+            string toreturn = $"{responseHeader.ToString()}\r\ncontent-length: {contentlength}\r\n";
+            foreach (var a in responseHeader.headerParameters)
+                foreach (var b in a.HeaderVariables)
+                    toreturn += $"{b.name}: {b.value}\r\n";
+            return toreturn;
+        }
+
         public static byte[] Serialize(Content content, ResponseHeader responseHeader)
         {
             return System.Text.Encoding.UTF8.GetBytes(HeaderToString(responseHeader) + $"content-length: {content.ContentLength}\r\n\r\n").Append(content.ContentBytes);

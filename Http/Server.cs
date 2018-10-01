@@ -38,9 +38,23 @@ namespace Http
 
         public void Start(string hostname)
         {
-            _listener = new TcpListener(Dns.GetHostAddresses(hostname)[0], 80);
-            _listener.Start();
-            new Thread(Listen).Start();
+            var a = Dns.GetHostAddresses(hostname);
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                try
+                {
+                    _listener = new TcpListener(a[i], 80);
+                    _listener.Start();
+                    Console.WriteLine($"Bound to {a[i]} (attempt {i + 1})");
+                    new Thread(Listen).Start();
+                    return;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine($"Failed to bind to {a[i]} (attempt {i + 1})");
+                }
+            }
         }
 
         public Server(IPEndPoint Bind) { this.Bind = Bind; _listener = null; }

@@ -39,6 +39,8 @@ namespace Http.HttpMessage.Message
                     return "image/jpeg";
                 case ContentTypes.IMAGEPNG:
                     return "image/png";
+                case ContentTypes.ICO:
+                    return "image/ico";
                 case ContentTypes.TEXTHTML:
                     return "text/html";
                 case ContentTypes.TEXTXML:
@@ -86,6 +88,7 @@ namespace Http.HttpMessage.Message
             TEXTCSS = 3,
             TEXTXML = 4,
             PLAIN = 5,
+            ICO = 6,
         }
     }
 }

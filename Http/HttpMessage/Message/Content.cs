@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Http.HttpMessage.Message
 {
@@ -19,7 +20,7 @@ namespace Http.HttpMessage.Message
 
         public Content() { ContentBytes = new byte[0]; }
         public Content(byte[] content) { ContentBytes = content ?? new byte[0]; }
-        
+
         public void Dispose()
         {
             ContentBytes = null;
