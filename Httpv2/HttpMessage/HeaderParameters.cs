@@ -122,7 +122,7 @@ namespace Httpv2.HttpMessage
         {
             UTF8 = 0,
             ASCII = 1,
-            EXTENDEDAASCII_ANSI = 2,
+            ANSI = 2,
         }
 
         public enum Pragmas

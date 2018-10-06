@@ -80,6 +80,31 @@ namespace Httpv2
             return recieved;
         }
 
+
+        private Tuple<Header> RecieveAllDataSafe(TcpClient client)
+        {
+            byte[] recieved = new byte[client.ReceiveBufferSize];
+            client.Client.Receive(recieved, 0, client.ReceiveBufferSize, SocketFlags.None);
+            var header = GetHeader(recieved);
+            var torecieve = header.RequestParameters.ContentLength - client.ReceiveBufferSize;
+            while (torecieve > 0)
+            {
+                if (torecieve >= client.ReceiveBufferSize)
+                {
+                    byte[] buffer = new byte[client.ReceiveBufferSize];
+                    torecieve -= client.Client.Receive(buffer, 0, client.ReceiveBufferSize, SocketFlags.None);
+                    recieved = Append(recieved, buffer);
+                }
+                else
+                {
+                    byte[] buffer = new byte[torecieve];
+                    torecieve -= client.Client.Receive(buffer, 0, torecieve, SocketFlags.None);
+                    recieved = Append(recieved, buffer);
+                }
+            }
+            return recieved;
+        }
+
         private static byte[] Append(byte[] arrayA, byte[] arrayB)
         {
             byte[] outputBytes = new byte[arrayA.Length + arrayB.Length];
@@ -89,3 +114,55 @@ namespace Httpv2
         }
     }
 }
+
+//private void HandleClientSafe(TcpClient client)
+//{
+//    try
+//    {
+//        byte[] buffer = RecieveAllDataSafe(client);
+//        var request = HttpRequest.Parse(buffer);
+//        InvokeAll(RequestRecieved.GetInvocationList(), request, client);
+//    }
+//    catch
+//    {
+
+//    }
+//}
+
+//private byte[] RecieveAllDataSafe(TcpClient client)
+//{
+//    byte[] recieved = new byte[client.ReceiveBufferSize];
+//    client.Client.Receive(recieved, 0, client.ReceiveBufferSize, SocketFlags.None);
+//    var header = GetHeader(recieved);
+//    var torecieve = header.RequestParameters.ContentLength - client.ReceiveBufferSize;
+//    while (torecieve > 0)
+//    {
+//        if (torecieve >= client.ReceiveBufferSize)
+//        {
+//            byte[] buffer = new byte[client.ReceiveBufferSize];
+//            torecieve -= client.Client.Receive(buffer, 0, client.ReceiveBufferSize, SocketFlags.None);
+//            recieved = Append(recieved, buffer);
+//        }
+//        else
+//        {
+//            byte[] buffer = new byte[torecieve];
+//            torecieve -= client.Client.Receive(buffer, 0, torecieve, SocketFlags.None);
+//            recieved = Append(recieved, buffer);
+//        }
+//    }
+//    return recieved;
+//}
+
+//private static byte[] Append(byte[] arrayA, byte[] arrayB)
+//{
+//    byte[] outputBytes = new byte[arrayA.Length + arrayB.Length];
+//    Buffer.BlockCopy(arrayA, 0, outputBytes, 0, arrayA.Length);
+//    Buffer.BlockCopy(arrayB, 0, outputBytes, arrayA.Length, arrayB.Length);
+//    return outputBytes;
+//}
+
+//private HttpMessage.Message.RequestHeader GetHeader(byte[] raw)
+//{
+//    string ascii = Encoding.ASCII.GetString(raw);
+//    return HttpMessage.Message.RequestHeader.Parse(ascii.Substring(0, ascii.IndexOf("\r\n\r\n")));
+//}

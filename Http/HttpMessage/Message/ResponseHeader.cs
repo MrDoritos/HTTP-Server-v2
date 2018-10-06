@@ -47,6 +47,8 @@ namespace Http.HttpMessage.Message
                     return "text/xml";
                 case ContentTypes.TEXTCSS:
                     return "text/css";
+                case ContentTypes.ZIP:
+                    return "application/zip";
                 default:
                     return "plain";
             }
@@ -89,6 +91,7 @@ namespace Http.HttpMessage.Message
             TEXTXML = 4,
             PLAIN = 5,
             ICO = 6,
+            ZIP = 7,
         }
     }
 }

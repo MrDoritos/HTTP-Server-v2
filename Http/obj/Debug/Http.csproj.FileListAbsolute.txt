@@ -3,4 +3,4 @@ C:\Users\Ian\source\repos\Http\Http\bin\Debug\Http.pdb
 C:\Users\Ian\source\repos\Http\Http\obj\Debug\Http.csproj.CoreCompileInputs.cache
 C:\Users\Ian\source\repos\Http\Http\obj\Debug\Http.dll
 C:\Users\Ian\source\repos\Http\Http\obj\Debug\Http.pdb
-C:\Users\Ian\source\repos\Http\Http\obj\Debug\Http.csprojResolveAssemblyReference.cache
+C:\Users\Ian\source\repos\Http\Http\obj\Debug\Http.csprojAssemblyReference.cache
